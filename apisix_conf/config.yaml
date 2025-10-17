@@ -22,6 +22,9 @@ apisix:
   control:
     ip: "0.0.0.0"
     port: 9092
+  status:
+    ip: "0.0.0.0"
+    port: 7085
 
 deployment:
   admin:
@@ -36,9 +39,6 @@ deployment:
         key: edd1c9f034335f136f87ad84b625c8f1  # using fixed API token has security risk, please update it when you deploy to production environment
         role: admin                 # admin: manage all configuration data
 
-      - name: "viewer"
-        key: 4054f7cf07e344346cd3f287985e76a2
-        role: viewer
 
   etcd:
     host:                           # it's possible to define multiple etcd hosts addresses of the same etcd cluster.
