@@ -15,7 +15,10 @@ conf:
       file_path: logs/access.log
   security:
     access_control_allow_origin: "*"
-
+    access_control_allow_credentials: true
+    access_control_allow_headers: "*"
+    access_control_allow_methods: "*"
+    x_frame_options: "deny"
     content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; manifest-src 'self'; media-src 'self'; object-src 'none'; child-src 'self'; form-action 'self'; base-uri 'self';"
     x_content_type_options: "nosniff"
     referrer_policy: "no-referrer-when-downgrade"
@@ -26,18 +29,6 @@ conf:
       allowed_headers: "*"
       allowed_credentials: true
       max_age: 5
-    # NOTE: manager-api expects authentication.users (see packaged conf),
-    # not `security.admin`. Define authentication below.
-  default_plugins:
-    - name: "key-auth"
-      disable: false
-    - name: "basic-auth"
-      disable: false
-    - name: "jwt-auth"
-      disable: false
-    - name: "ip-restriction"
-      disable: false
-    # Puedes añadir más plugins según necesites
 
 authentication:
   secret: secret
@@ -45,3 +36,64 @@ authentication:
   users:
     - username: admin
       password: admin
+      role: admin
+
+plugins:
+  # Authentication
+  - key-auth
+  - basic-auth
+  - jwt-auth
+  - hmac-auth
+  - openid-connect
+  - ldap-auth
+
+  # Security
+  - ip-restriction
+  - cors
+  - csrf
+  - uri-blocker
+  - referer-restriction
+
+  # Rate Limiting & Traffic Control
+  - limit-req
+  - limit-count
+  - limit-conn
+  - traffic-split
+
+  # Observability
+  - prometheus
+  - zipkin
+  - skywalking
+  - datadog
+
+  # Transformation
+  - proxy-rewrite
+  - response-rewrite
+  - body-transformer
+
+  # Serverless & Function
+  - serverless-pre-function
+  - serverless-post-function
+  - aws-lambda
+  - azure-functions
+  - openwhisk
+
+  # Logging
+  - http-logger
+  - kafka-logger
+  - syslog
+  - elasticsearch-logger
+
+  # AI-related Plugins
+  - ai-proxy
+  - ai
+  - ai-request-rewrite
+  - ai-prompt-guard
+  - ai-prompt-template
+  - ai-rate-limiting
+
+  # Miscellaneous
+  - fault-injection
+  - redirect
+  - proxy-cache
+  - forward-auth

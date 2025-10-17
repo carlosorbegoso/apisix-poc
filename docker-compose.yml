@@ -60,6 +60,7 @@ services:
     environment:
       - ETCD_ENDPOINTS=http://etcd:2379
       - ETCD_PREFIX=/apisix
+      - APISIX_ADMIN_KEY=admin
     volumes:
       - ./dashboard_conf/conf.yaml:/conf/conf.yaml:ro
     depends_on:
