@@ -1,0 +1,53 @@
+version: '3.8'
+
+networks:
+  apisix:
+    driver: bridge
+
+services:
+  apisix:
+    image: apache/apisix:${APISIX_IMAGE_TAG:-3.14.0-debian}
+    restart: always
+    volumes:
+      - ./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro
+    depends_on:
+      - etcd
+    ports:
+      - "9180:9180/tcp"
+      - "9080:9080/tcp"
+      - "9091:9091/tcp"
+      - "9443:9443/tcp"
+      - "9092:9092/tcp"
+    environment:
+      APISIX_ETCD_ENDPOINTS: "http://etcd:2379"
+      APISIX_ETCD_PREFIX: "/apisix"
+      APISIX_ADMIN_KEY: "edd1c9f034335f136f87ad84b625c8f1"
+    networks:
+      apisix:
+
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.9
+    restart: always
+    command:
+      - /usr/local/bin/etcd
+      - --name=etcd-server
+      - --data-dir=/etcd-data
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --advertise-client-urls=http://etcd:2379
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-advertise-peer-urls=http://etcd:2380
+      - --initial-cluster=etcd-server=http://etcd:2380
+      - --initial-cluster-token=etcd-cluster-1
+      - --initial-cluster-state=new
+      - --auto-compaction-retention=1
+      - --quota-backend-bytes=8589934592
+    volumes:
+      - etcd_data:/etcd-data
+    ports:
+      - "2379:2379/tcp"
+      - "2380:2380/tcp"
+    networks:
+      apisix:
+
+volumes:
+  etcd_data:

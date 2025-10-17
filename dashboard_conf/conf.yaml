@@ -1,0 +1,248 @@
+conf:
+  listen:
+    host: 0.0.0.0
+    port: 9000
+  etcd:
+    endpoints:
+      - http://etcd:2379
+    prefix: /apisix
+    timeout: 30
+  log:
+    error_log:
+      level: warn
+      file_path: logs/error.log
+    access_log:
+      file_path: logs/access.log
+  security:
+    access_control_allow_origin: "*"
+    access_control_allow_credentials: true
+    access_control_allow_headers: "*"
+    access_control_allow_methods: "*"
+    x_frame_options: "deny"
+    content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; manifest-src 'self'; media-src 'self'; object-src 'none'; child-src 'self'; form-action 'self'; base-uri 'self';"
+    x_content_type_options: "nosniff"
+    referrer_policy: "no-referrer-when-downgrade"
+    cross_domain:
+      enabled: true
+      allowed_origins: "*"
+      allowed_methods: "*"
+      allowed_headers: "*"
+      allowed_credentials: true
+      max_age: 5
+  default_plugins:
+    - name: "key-auth"
+      disable: false
+    - name: "basic-auth"
+      disable: false
+    - name: "jwt-auth"
+      disable: false
+    - name: "ip-restriction"
+      disable: false
+    - name: "referer-restriction"
+      disable: false
+    - name: "csrf"
+      disable: false
+    - name: "ua-restriction"
+      disable: false
+    - name: "cors"
+      disable: false
+    - name: "uri-blocker"
+      disable: false
+    - name: "request-validation"
+      disable: false
+    - name: "openid-connect"
+      disable: false
+    - name: "forward-auth"
+      disable: false
+    - name: "fault-injection"
+      disable: false
+    - name: "api-breaker"
+      disable: false
+    - name: "limit-req"
+      disable: false
+    - name: "limit-count"
+      disable: false
+    - name: "limit-conn"
+      disable: false
+    - name: "gzip"
+      disable: false
+    - name: "server-info"
+      disable: false
+    - name: "traffic-split"
+      disable: false
+    - name: "redirect"
+      disable: false
+    - name: "response-rewrite"
+      disable: false
+    - name: "degraphql"
+      disable: false
+    - name: "kafka-proxy"
+      disable: false
+    - name: "kafka-logger"
+      disable: false
+    - name: "zipkin"
+      disable: false
+    - name: "http-logger"
+      disable: false
+    - name: "tcp-logger"
+      disable: false
+    - name: "udp-logger"
+      disable: false
+    - name: "file-logger"
+      disable: false
+    - name: "sls-logger"
+      disable: false
+    - name: "google-cloud-logging"
+      disable: false
+    - name: "splunk-hec-logging"
+      disable: false
+    - name: "skywalking-logger"
+      disable: false
+    - name: "datadog"
+      disable: false
+    - name: "tencent-cloud-cls"
+      disable: false
+    - name: "elasticsearch-logger"
+      disable: false
+    - name: "clickhouse-logger"
+      disable: false
+    - name: "rocketmq-logger"
+      disable: false
+    - name: "syslog"
+      disable: false
+    - name: "loggly"
+      disable: false
+    - name: "influxdb"
+      disable: false
+    - name: "loki"
+      disable: false
+    - name: "opentelemetry"
+      disable: false
+    - name: "aws-lambda"
+      disable: false
+    - name: "azure-functions"
+      disable: false
+    - name: "openwhisk"
+      disable: false
+    - name: "kubeless"
+      disable: false
+    - name: "fn"
+      disable: false
+    - name: "cloud-events"
+      disable: false
+    - name: "grpc-transcode"
+      disable: false
+    - name: "grpc-web"
+      disable: false
+    - name: "ext-plugin-pre-req"
+      disable: false
+    - name: "ext-plugin-post-req"
+      disable: false
+    - name: "ext-plugin-post-resp"
+      disable: false
+    - name: "ext-plugin-access"
+      disable: false
+    - name: "ext-plugin-header-filter"
+      disable: false
+    - name: "ext-plugin-body-filter"
+      disable: false
+    - name: "ext-plugin-log"
+      disable: false
+    - name: "wolf-rbac"
+      disable: false
+    - name: "cas-auth"
+      disable: false
+    - name: "authz-casbin"
+      disable: false
+    - name: "authz-casdoor"
+      disable: false
+    - name: "authz-cerberus"
+      disable: false
+    - name: "hmac-auth"
+      disable: false
+    - name: "consumer-restriction"
+      disable: false
+    - name: "general-rewrite"
+      disable: false
+    - name: "ai-proxy"
+      disable: false
+    - name: "ai"
+      disable: false
+    - name: "wasm"
+      disable: false
+    - name: "multi-auth"
+      disable: false
+    - name: "authz-keycloak"
+      disable: false
+    - name: "opa"
+      disable: false
+    - name: "ldap-auth"
+      disable: false
+    - name: "error-log-logger"
+      disable: false
+    - name: "example-plugin"
+      disable: false
+    - name: "aws-lambda"
+      disable: false
+    - name: "azure-functions"
+      disable: false
+    - name: "openwhisk"
+      disable: false
+    - name: "kubeless"
+      disable: false
+    - name: "fn"
+      disable: false
+    - name: "cloud-events"
+      disable: false
+    - name: "grpc-transcode"
+      disable: false
+    - name: "grpc-web"
+      disable: false
+    - name: "ext-plugin-pre-req"
+      disable: false
+    - name: "ext-plugin-post-req"
+      disable: false
+    - name: "ext-plugin-post-resp"
+      disable: false
+    - name: "ext-plugin-access"
+      disable: false
+    - name: "ext-plugin-header-filter"
+      disable: false
+    - name: "ext-plugin-body-filter"
+      disable: false
+    - name: "ext-plugin-log"
+      disable: false
+    - name: "wolf-rbac"
+      disable: false
+    - name: "cas-auth"
+      disable: false
+    - name: "authz-casbin"
+      disable: false
+    - name: "authz-casdoor"
+      disable: false
+    - name: "authz-cerberus"
+      disable: false
+    - name: "hmac-auth"
+      disable: false
+    - name: "consumer-restriction"
+      disable: false
+    - name: "general-rewrite"
+      disable: false
+    - name: "ai-proxy"
+      disable: false
+    - name: "ai"
+      disable: false
+    - name: "wasm"
+      disable: false
+    - name: "multi-auth"
+      disable: false
+    - name: "authz-keycloak"
+      disable: false
+    - name: "opa"
+      disable: false
+    - name: "ldap-auth"
+      disable: false
+    - name: "error-log-logger"
+      disable: false
+    - name: "example-plugin"
+      disable: false
