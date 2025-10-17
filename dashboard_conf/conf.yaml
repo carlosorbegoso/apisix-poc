@@ -14,12 +14,8 @@ conf:
     access_log:
       file_path: logs/access.log
   security:
-    # En producción, reemplaza "*" con los orígenes específicos que necesitas
     access_control_allow_origin: "*"
-    access_control_allow_credentials: true
-    access_control_allow_headers: "*"
-    access_control_allow_methods: "*"
-    x_frame_options: "deny"
+
     content_security_policy: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; manifest-src 'self'; media-src 'self'; object-src 'none'; child-src 'self'; form-action 'self'; base-uri 'self';"
     x_content_type_options: "nosniff"
     referrer_policy: "no-referrer-when-downgrade"
@@ -30,10 +26,8 @@ conf:
       allowed_headers: "*"
       allowed_credentials: true
       max_age: 5
-    admin:
-      - username: "admin"
-        password: "admin"
-        role: "admin"
+    # NOTE: manager-api expects authentication.users (see packaged conf),
+    # not `security.admin`. Define authentication below.
   default_plugins:
     - name: "key-auth"
       disable: false
@@ -43,3 +37,11 @@ conf:
       disable: false
     - name: "ip-restriction"
       disable: false
+    # Puedes añadir más plugins según necesites
+
+authentication:
+  secret: secret
+  expire_time: 3600
+  users:
+    - username: admin
+      password: admin
