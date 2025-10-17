@@ -21,7 +21,6 @@ services:
     environment:
       APISIX_ETCD_ENDPOINTS: "http://etcd:2379"
       APISIX_ETCD_PREFIX: "/apisix"
-      APISIX_ADMIN_KEY: "edd1c9f034335f136f87ad84b625c8f1"
     networks:
       apisix:
 
