@@ -49,5 +49,25 @@ services:
     networks:
       apisix:
 
+  dashboard:
+    image: apache/apisix-dashboard:latest
+    restart: always
+    command: 
+      - -c 
+      - /conf/conf.yaml
+    env_file:
+      - ./dashboard_conf/default_users.env
+    environment:
+      - ETCD_ENDPOINTS=http://etcd:2379
+      - ETCD_PREFIX=/apisix
+    volumes:
+      - ./dashboard_conf/conf.yaml:/conf/conf.yaml:ro
+    depends_on:
+      - etcd
+    ports:
+      - "9000:9000/tcp"
+    networks:
+      - apisix
+
 volumes:
   etcd_data:
